@@ -1,0 +1,15 @@
+#!/bin/bash
+
+pushd $1 >/dev/null
+echo '<p><a href="../index.htm">..</a></p>' >index.htm
+
+for i in `ls --group-directories-first`; do
+  if [ -d $i ]; then
+		echo "<p><a href=\"$i/index.htm\">$i</a></p>" >> index.htm
+		../$0 $i
+	elif [ $i != 'index.htm' ]; then 
+		echo "<img src=\"$i\"/>" >> index.htm
+	fi
+done
+
+popd >/dev/null
